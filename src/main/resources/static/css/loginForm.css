@@ -1,0 +1,32 @@
+html,
+body {
+    height: 100vh;
+    z-index: 1050;
+}
+
+form {
+    max-width: 330px;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+.form-floating:focus-within {
+    z-index: 2;
+}
+
+form input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+form input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-check {
+    margin-top: 10px;
+}
+
