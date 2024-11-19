@@ -1,6 +1,7 @@
 package com.shopshop.firstshop.controller;
 
 import com.shopshop.firstshop.dto.JoinFormDto;
+import com.shopshop.firstshop.dto.LoginFormDto;
 import com.shopshop.firstshop.entity.Member;
 import com.shopshop.firstshop.service.MemberService;
 import jakarta.validation.Valid;
@@ -23,17 +24,25 @@ public class MemberController {
 
     @GetMapping("/join")
     public String memberForm(Model model) {
-        model.addAttribute("joinFormDTO", new JoinFormDto());
+
+        log.info("페이지 members/join이 열렸음");
+        model.addAttribute("joinFormDto", new JoinFormDto());
         return "member/joinForm"; // resources/templates의 member/joinForm 렌더링해서 보여줌
     }
 
     @PostMapping("/join")
     public String memberForm(@Valid JoinFormDto joinFormDto, BindingResult bindingResult, Model model) {
-        // 검증하려는 객체 앞에 @Valud 애노테이션 붙여줘야 한다.
+        // 검증하려는 객체 앞에 @Valid 애노테이션 붙여줘야 한다.
         // bindingResult 파라미터를 추가해주고 검증의 결과가 여기에 저장되게 한다.
 
         if(bindingResult.hasErrors()) {
-            return "member/joinForm"; // bindingResult 객체에 에어가 있으면 회원가입 페이지 다시 이동함
+            log.info("bindingResult has error");
+            // getModel() 메소드를 통해 joinFormDto의 검증 결과를 가져온다.
+            log.info("BindingResult: {}", bindingResult.getModel());
+
+            // bindingResult 객체에 에러가 있으면 회원가입 페이지 다시 이동함
+            // 이때 bindingResult가 html로 넘어간다.
+            return "member/joinForm";
         }
 
         try {
@@ -48,22 +57,36 @@ public class MemberController {
         return "redirect:/";
     }
 
-    /*@GetMapping("/login")
+
+    @GetMapping("/login")
     public String memberLogin(Model model) {
 
-        model.addAttribute("loginFormDTO", new LoginFormDto());
-        return "loginForm";
+        model.addAttribute("loginFormDto", new LoginFormDto());
+        return "/member/loginForm";
     }
 
     @PostMapping("/login")
-    public String memberLogin(LoginFormDto loginFormDto) {
+    public String memberLogin(@Valid LoginFormDto loginFormDto, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult has error");
+            log.info("BindingResult: {}", bindingResult.getModel());
+
+            return "member/loginForm";
+        }
 
         try {
-            Member member = memberService.login(loginFormDto.getEmail(), loginFormDto.getPassword());
+            memberService.login(loginFormDto.getEmail(), loginFormDto.getPassword());
             return "redirect:/";
         } catch (IllegalStateException e) {
             log.info("error", e);
-            return "redirect:/members/login";
+            model.addAttribute("LoginErrorMessage", e.getMessage());
+            return "/member/loginForm";
         }
-    }*/
+    }
+
+    @GetMapping("/user")
+    public @ResponseBody String user() {
+        return "user";
+    }
 }
