@@ -23,7 +23,7 @@ public class Member {
     private String name;
 
     @Column(unique = true) // 이메일을 통해 회원을 구분하므로 UNIQUE
-    private String email;
+    private String username;
 
     private String password;
 
@@ -38,11 +38,11 @@ public class Member {
 
         Member member = new Member();
         member.setName(joinFormDto.getName());
-        member.setEmail(joinFormDto.getEmail());
+        member.setUsername(joinFormDto.getUsername());
         String encodedPassword = passwordEncoder.encode(joinFormDto.getPassword());
         member.setPassword(encodedPassword);
         member.setAddress(joinFormDto.getAddress());
-        member.setRole(Role.ADMIN); //일단은 ADMIN으로 셋팅..
+        member.setRole(Role.ROLE_USER); //일단은 ROLE_USER 으로 셋팅..
         return member;
     }
 }
