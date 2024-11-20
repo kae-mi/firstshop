@@ -7,7 +7,7 @@ import lombok.Data;
 public class LoginFormDto {
 
     @NotBlank(message = "아이디 또는 비밀번호를 입력해주세요.")
-    private String email;
+    private String username;
 
     @NotBlank(message = "아이디 또는 비밀번호를 입력해주세요.")
     private String password;

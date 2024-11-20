@@ -45,10 +45,10 @@
 
                 <div class="col-12">
                     <label th:for="email" class="form-label">Email</label>
-                    <input type="email" th:field="*{email}" class="form-control"
+                    <input type="email" th:field="*{username}" class="form-control"
                            placeholder="you@example.com" required pattern="^[\w-.]+@([\w-]+\.)+[\w-]{2,}$">
-                    <div th:if="${#fields.hasErrors('email')}"
-                         th:errors="*{email}"
+                    <div th:if="${#fields.hasErrors('username')}"
+                         th:errors="*{username}"
                          class="invalid-feedback">
                     </div>
                 </div>

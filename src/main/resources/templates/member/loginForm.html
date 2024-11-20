@@ -30,11 +30,11 @@
 
 
             <div class="col-12">
-                <label th:for="email" class="form-label">Email</label>
-                <input type="text" th:field="*{email}" class="form-control"
+                <label th:for="username" class="form-label">Email</label>
+                <input type="text" th:field="*{username}" class="form-control"
                        placeholder="email" required>
-                <div th:if="${#fields.hasErrors('email')}"
-                     th:errors="*{email}"
+                <div th:if="${#fields.hasErrors('username')}"
+                     th:errors="*{username}"
                      class="invalid-feedback">
                 </div>
             </div>

@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -16,10 +16,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity // 시큐리티 필터가 스프링 필터체인에 Bean으로 등록이 된다.
+@EnableMethodSecurity(securedEnabled = true) // @Secured 애노테이션 활성화
 @AllArgsConstructor //왜?
 public class SecurityConfig {
 
@@ -34,6 +34,8 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/members/login") // 사용자 정의 로그인 페이지
+                        .loginProcessingUrl("/members/login") // 해당 url로 요청이 오면 시큐리티가 요청을 낚아챈채서 로그인 로직을 수행한다. 따라서 컨트롤러에서 get 안만들어도 됨
+                        .defaultSuccessUrl("/")
                         .permitAll() // 로그인 페이지는 누구나 접속 가능
                 )
                 .csrf(AbstractHttpConfigurer::disable

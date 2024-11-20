@@ -7,6 +7,7 @@ import com.shopshop.firstshop.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,7 +66,7 @@ public class MemberController {
         return "/member/loginForm";
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public String memberLogin(@Valid LoginFormDto loginFormDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -83,10 +84,16 @@ public class MemberController {
             model.addAttribute("LoginErrorMessage", e.getMessage());
             return "/member/loginForm";
         }
-    }
+    }*/
 
     @GetMapping("/user")
     public @ResponseBody String user() {
         return "user";
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("/info")
+    public @ResponseBody String info() {
+        return "개인정보 페이지";
     }
 }
