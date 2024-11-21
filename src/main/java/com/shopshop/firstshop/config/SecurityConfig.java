@@ -1,17 +1,12 @@
 package com.shopshop.firstshop.config;
 
-import com.shopshop.firstshop.service.MemberService;
+import com.shopshop.firstshop.security.CustomAuthenticationSuccessHandler;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +31,7 @@ public class SecurityConfig {
                         .loginPage("/members/login") // 사용자 정의 로그인 페이지
                         .loginProcessingUrl("/members/login") // 해당 url로 요청이 오면 시큐리티가 요청을 낚아챈채서 로그인 로직을 수행한다. 따라서 컨트롤러에서 get 안만들어도 됨
                         .defaultSuccessUrl("/")
+                        .successHandler(new CustomAuthenticationSuccessHandler())
                         .permitAll() // 로그인 페이지는 누구나 접속 가능
                 )
                 .csrf(AbstractHttpConfigurer::disable
