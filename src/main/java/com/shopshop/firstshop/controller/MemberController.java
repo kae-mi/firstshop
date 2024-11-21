@@ -4,6 +4,7 @@ import com.shopshop.firstshop.dto.JoinFormDto;
 import com.shopshop.firstshop.dto.LoginFormDto;
 import com.shopshop.firstshop.entity.Member;
 import com.shopshop.firstshop.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,10 +60,15 @@ public class MemberController {
     }
 
 
+
+
     @GetMapping("/login")
     public String memberLogin(Model model) {
 
         model.addAttribute("loginFormDto", new LoginFormDto());
+
+
+
         return "/member/loginForm";
     }
 
@@ -87,8 +93,8 @@ public class MemberController {
     }*/
 
     @GetMapping("/user")
-    public @ResponseBody String user() {
-        return "user";
+    public String user() {
+        return "adminHome";
     }
 
     @Secured("ROLE_USER")
