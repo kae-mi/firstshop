@@ -20,10 +20,10 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    private String name;
+    private String name; // 회원 실명
 
     @Column(unique = true) // 이메일을 통해 회원을 구분하므로 UNIQUE
-    private String username;
+    private String username; // 이메일 - 로그인을 위한 id
 
     private String password;
 
@@ -42,7 +42,20 @@ public class Member {
         String encodedPassword = passwordEncoder.encode(joinFormDto.getPassword());
         member.setPassword(encodedPassword);
         member.setAddress(joinFormDto.getAddress());
-        member.setRole(Role.ROLE_USER); //일단은 ROLE_USER 으로 셋팅..
+        member.setRole(Role.ROLE_USER);
+        return member;
+    }
+
+    public static Member createAdmin(JoinFormDto joinFormDto,
+                              PasswordEncoder passwordEncoder) {
+
+        Member member = new Member();
+        member.setName(joinFormDto.getName());
+        member.setUsername(joinFormDto.getUsername());
+        String encodedPassword = passwordEncoder.encode(joinFormDto.getPassword());
+        member.setPassword(encodedPassword);
+        member.setAddress(joinFormDto.getAddress());
+        member.setRole(Role.ROLE_ADMIN);
         return member;
     }
 }

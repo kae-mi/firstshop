@@ -4,10 +4,12 @@ import com.shopshop.firstshop.security.CustomAuthenticationSuccessHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,6 +23,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+
         http
                 .authorizeHttpRequests(auth -> auth
                         //.requestMatchers("/user").authenticated() // /user로 접근하려면 인증이 필요하고 자동으로 로그인 페이지로 이동함
@@ -29,7 +32,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/members/login") // 사용자 정의 로그인 페이지
-                        .loginProcessingUrl("/members/login") // 해당 url로 요청이 오면 시큐리티가 요청을 낚아챈채서 로그인 로직을 수행한다. 따라서 컨트롤러에서 get 안만들어도 됨
+                        .loginProcessingUrl("/members/login") // 해당 url로 요청이 오면 시큐리티가 요청을 낚아채서 로그인 로직을 수행한다. 따라서 컨트롤러에서 get 안만들어도 됨
                         .defaultSuccessUrl("/")
                         .successHandler(new CustomAuthenticationSuccessHandler())
                         .permitAll() // 로그인 페이지는 누구나 접속 가능

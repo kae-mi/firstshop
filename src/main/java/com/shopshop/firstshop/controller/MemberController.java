@@ -25,7 +25,7 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/join")
-    public String memberForm(Model model) {
+    public String joinForm(Model model) {
 
         log.info("페이지 members/join이 열렸음");
         model.addAttribute("joinFormDto", new JoinFormDto());
@@ -67,8 +67,6 @@ public class MemberController {
 
         model.addAttribute("loginFormDto", new LoginFormDto());
 
-
-
         return "/member/loginForm";
     }
 
@@ -91,6 +89,37 @@ public class MemberController {
             return "/member/loginForm";
         }
     }*/
+
+    @GetMapping("/joinAdmin")
+    public String joinAdminForm(Model model) {
+        model.addAttribute("joinFormDto", new JoinFormDto());
+        model.addAttribute("role", "admin");
+        return "member/joinForm";
+    }
+
+    @PostMapping("/joinAdmin")
+    public String joinAdmin(@Valid JoinFormDto joinFormDto, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            log.info("bindingResult has error");
+            log.info("BindingResult: {}", bindingResult.getModel());
+
+
+            return "member/joinForm";
+        }
+
+        try {
+            Member member = Member.createAdmin(joinFormDto, passwordEncoder);
+            memberService.saveMember(member);
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/joinForm";
+        }
+
+        return "redirect:/";
+    }
+
+
 
     @GetMapping("/user")
     public String user() {
