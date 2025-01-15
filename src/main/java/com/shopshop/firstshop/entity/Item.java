@@ -19,7 +19,7 @@ public class Item {
     @Id
     @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Column(nullable = false, length = 50) // NULL 불가능, 이름 길이 50 제한
     private String itemName;

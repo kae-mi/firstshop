@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            background-image: url('https://example.com/background.png'); /* 배경 이미지를 넣으세요 */
+            background-size: cover;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center mb-4">상품 등록</h2>
+    <!-- form 태그에 타임리프를 이용하여 액션 URL을 설정 -->
+    <form action="/admin/item/new" th:object="${itemFormDto}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="productStatus" class="form-label">판매 상태</label>
+            <select id="productStatus" class="form-select" th:field="*{itemSellStatus}">
+                <option value="SELL" th:selected="*{itemSellStatus == 'SELL'}">판매중</option>
+                <option value="SOLD_OUT" th:selected="*{itemSellStatus == 'SOLD_OUT'}">품절</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="productName" class="form-label">상품명</label>
+            <input type="text" id="productName" class="form-control" th:field="*{itemName}" placeholder="상품명을 입력하세요">
+        </div>
+        <div class="mb-3">
+            <label for="productCategory" class="form-label">카테고리</label>
+            <input type="text" id="productCategory" class="form-control" th:field="*{itemCategory}" placeholder="카테고리를 입력하세요">
+        </div>
+        <div class="mb-3">
+            <label for="productPrice" class="form-label">가격</label>
+            <input type="number" id="productPrice" class="form-control" th:field="*{price}" placeholder="가격을 입력하세요">
+        </div>
+        <div class="mb-3">
+            <label for="productStock" class="form-label">재고</label>
+            <input type="number" id="productStock" class="form-control" th:field="*{stockNumber}" placeholder="재고 수량을 입력하세요">
+        </div>
+        <div class="mb-3">
+            <label for="productDescription" class="form-label">상품 상세 내용</label>
+            <textarea id="productDescription" class="form-control" rows="4" th:field="*{itemDetail}" placeholder="상품 상세 설명을 입력하세요"></textarea>
+        </div>
+
+        <div th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">
+            <div class="form-group" th:each="num: ${#numbers.sequence(1,3)}">
+                <div class="custom-file img-div" style="width:400px;">
+                    <input type="file" class="custom-file-input" name="itemImgFile">
+                    <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
+                </div>
+            </div>
+        </div>
+
+        <div th:if = "${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
+            <div class="form-group" th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
+                <div class="custom-file img-div">
+                    <input type="file" class="custom-file-input" name="itemImgFile">
+                    <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">
+                    <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">상품 등록</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

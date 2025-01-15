@@ -16,14 +16,13 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Admin Dashboard</a>
+        <a class="navbar-brand" href="#!">Admin Only</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdminContent" aria-controls="navbarAdminContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarAdminContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Manage Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">View Orders</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Administrator Info</a></li>
+                <li class="nav-item"><a class="nav-link" href="item/new">상품 등록</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">상품 관리</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">주문 관리</a></li>
             </ul>
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="button" th:onclick="|location.href='/logout'|">
