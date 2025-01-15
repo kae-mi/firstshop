@@ -2,6 +2,7 @@ package com.shopshop.firstshop.entity;
 
 import com.shopshop.firstshop.constant.ItemSellStatus;
 import com.shopshop.firstshop.dto.ItemDto;
+import com.shopshop.firstshop.dto.ItemFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,12 +45,12 @@ public class Item {
 
     private LocalDateTime updateTime;
 
-    void updateItem(ItemDto itemDto) {
-        this.itemName = itemDto.getItemName();
-        this.itemCategory = itemDto.getItemCategory();
-        this.price = itemDto.getPrice();
-        this.stockNumber = itemDto.getStockNumber();
-        this.itemDetail = itemDto.getItemDetail();
-        this.itemSellStatus = itemDto.getItemSellStatus();
+    public void updateItem(ItemFormDto itemFormDto) {
+        this.itemName = itemFormDto.getItemName();
+        this.itemCategory = itemFormDto.getItemCategory();
+        this.price = itemFormDto.getPrice();
+        this.stockNumber = itemFormDto.getStockNumber();
+        this.itemDetail = itemFormDto.getItemDetail();
+        this.itemSellStatus = itemFormDto.getItemSellStatus();
     }
 }
