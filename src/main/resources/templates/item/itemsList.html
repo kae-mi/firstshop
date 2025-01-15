@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Items List</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Items List</h1>
+
+    <!-- 상품 테이블 -->
+    <table class="table table-striped mt-4">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Detail</th>
+            <th>Status</th>
+            <th>Registered</th>
+            <th>Updated</th>
+            <th>Actions</th> <!-- 수정 및 삭제 -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 상품 데이터 출력 -->
+        <tr th:each="item : ${itemsPage?.content}">
+            <td th:text="${item.id}">ID</td>
+            <td th:text="${item.itemName}">Name</td>
+            <td th:text="${item.itemCategory}">Category</td>
+            <td th:text="${item.price}">Price</td>
+            <td th:text="${item.stockNumber}">Stock</td>
+            <td th:text="${item.itemDetail}">Detail</td>
+            <td th:text="${item.itemSellStatus}">Status</td>
+            <td th:text="${#dates.format(item.regTime, 'yyyy-MM-dd HH:mm:ss')}">Registered</td>
+            <td th:text="${#dates.format(item.updateTime, 'yyyy-MM-dd HH:mm:ss')}">Updated</td>
+            <td>
+                <a th:href="@{/admin/item/{itemId}(itemId=${item.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <button class="btn btn-danger btn-sm" onclick="confirmDelete(${item.id})">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- 이전 버튼 -->
+            <li class="page-item" th:classappend="${itemsPage?.hasPrevious()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/items(page=${itemsPage.number - 1}, size=${itemsPage.size})}" aria-label="Previous">Previous</a>
+            </li>
+            <!-- 페이지 번호 -->
+            <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, itemsPage?.totalPages - 1)}"
+                th:classappend="${pageNum == itemsPage.number} ? 'active' : ''">
+                <a class="page-link" th:href="@{/items(page=${pageNum}, size=${itemsPage.size})}" th:text="${pageNum + 1}">1</a>
+            </li>
+            <!-- 다음 버튼 -->
+            <li class="page-item" th:classappend="${itemsPage?.hasNext()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/items(page=${itemsPage.number + 1}, size=${itemsPage.size})}" aria-label="Next">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    function confirmDelete(itemId) {
+        if (confirm('Are you sure you want to delete this item?')) {
+            fetch(`/items/delete/${itemId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Item deleted successfully!');
+                        location.reload(); // 페이지 새로고침
+                    } else {
+                        alert('Failed to delete item. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        }
+    }
+</script>
+</body>
+</html>

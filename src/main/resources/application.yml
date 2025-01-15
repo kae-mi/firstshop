@@ -24,5 +24,5 @@ itemImgLocation: C:/first_shop/item/
 
 logging:
   level:
-    root: INFO
+    root: debug
 

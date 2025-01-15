@@ -31,328 +31,329 @@
             object-fit: cover; /* 이미지 비율 유지하며 채우기 */
         }
     </style>
-    </head>
-    <body>
-        <!-- 내비게이션 바 -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/">안승연 바보야 SHOP</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link" href="/item/newArrival">New Arrival</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/item/outwear">Outwear</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="/item/top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Top</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/item/top/knitwear">knitwear</a></li>
-                                <li><a class="dropdown-item" href="/item/top/sweatshirt">sweatshirt</a></li>
-                                <li><a class="dropdown-item" href="/item/top/shirts">shirts</a></li>
-                                <li><a class="dropdown-item" href="/item/top/innerwear">innerwear</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="/item/bottom">Bottom</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/item/accessory">Accessory</a></li>
-                    </ul>
+</head>
 
-                    <!-- 로그인/회원가입 버튼 -->
-                    <form class="d-flex">
-                        <a href="members/login" class="btn btn-primary btn-dark me-2">Log in</a>
+<body>
+    <!-- 내비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/">안승연 바보야 SHOP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="/item/newArrival">New Arrival</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/item/outwear">Outwear</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="/item/top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Top</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/item/top/knitwear">knitwear</a></li>
+                            <li><a class="dropdown-item" href="/item/top/sweatshirt">sweatshirt</a></li>
+                            <li><a class="dropdown-item" href="/item/top/shirts">shirts</a></li>
+                            <li><a class="dropdown-item" href="/item/top/innerwear">innerwear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/item/bottom">Bottom</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/item/accessory">Accessory</a></li>
+                </ul>
 
-                        <!-- Trigger Modal -->
-                        <a href="#" class="btn btn-primary btn-dark me-2" data-bs-toggle="modal" data-bs-target="#signUpModal">SIGN IN</a>
-                        <!-- Modal Structure -->
-                        <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="signUpModalLabel">회원가입 선택</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- 로그인/회원가입 버튼 -->
+                <form class="d-flex">
+                    <a href="members/login" class="btn btn-primary btn-dark me-2">Log in</a>
+
+                    <!-- Trigger Modal -->
+                    <a href="#" class="btn btn-primary btn-dark me-2" data-bs-toggle="modal" data-bs-target="#signUpModal">SIGN IN</a>
+                    <!-- Modal Structure -->
+                    <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="signUpModalLabel">회원가입 선택</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>회원가입 유형을 선택하세요:</p>
+                                    <div class="d-flex justify-content-around">
+                                        <a href="members/join" class="btn btn-outline-primary">일반 회원</a>
+                                        <a href="members/joinAdmin" class="btn btn-outline-secondary">관리자 회원</a>
                                     </div>
-                                    <div class="modal-body">
-                                        <p>회원가입 유형을 선택하세요:</p>
-                                        <div class="d-flex justify-content-around">
-                                            <a href="members/join" class="btn btn-outline-primary">일반 회원</a>
-                                            <a href="members/joinAdmin" class="btn btn-outline-secondary">관리자 회원</a>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                    </form>
-                    <!-- 로그인/회원가입 버튼 추가 끝 -->
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-
-        <div class="carousel-container">
-            <!-- Carousel 1 -->
-            <div id="carousel1" class="carousel slide carousel" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://draw-fit.com/web/Banner/24WI/men01.jpg" class="d-block w-100" alt="Men 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://draw-fit.com/web/Banner/24WI/men02.jpg" class="d-block w-100" alt="Men 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://draw-fit.com/web/Banner/24WI/men03.jpg" class="d-block w-100" alt="Men 3">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-
-            <!-- Carousel 2 -->
-            <div id="carousel2" class="carousel slide carousel" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://draw-fit.com/web/Banner/24WI/women01.jpg" class="d-block w-100" alt="Women 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://draw-fit.com/web/Banner/24WI/women01.jpg" class="d-block w-100" alt="Women 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://draw-fit.com/web/Banner/24WI/women01.jpg" class="d-block w-100" alt="Women 3">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                </form>
+                <!-- 로그인/회원가입 버튼 추가 끝 -->
+                <form class="d-flex">
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                </form>
             </div>
         </div>
+    </nav>
+
+    <div class="carousel-container">
+        <!-- Carousel 1 -->
+        <div id="carousel1" class="carousel slide carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://draw-fit.com/web/Banner/24WI/men01.jpg" class="d-block w-100" alt="Men 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://draw-fit.com/web/Banner/24WI/men02.jpg" class="d-block w-100" alt="Men 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://draw-fit.com/web/Banner/24WI/men03.jpg" class="d-block w-100" alt="Men 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Carousel 2 -->
+        <div id="carousel2" class="carousel slide carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://draw-fit.com/web/Banner/24WI/women01.jpg" class="d-block w-100" alt="Women 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://draw-fit.com/web/Banner/24WI/women01.jpg" class="d-block w-100" alt="Women 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://draw-fit.com/web/Banner/24WI/women01.jpg" class="d-block w-100" alt="Women 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
 
 <!--        &lt;!&ndash; Section&ndash;&gt;
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Fancy Product</h5>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                $40.00 - $80.00
                             </div>
                         </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Sale badge&ndash;&gt;
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Special Item</h5>
-                                    &lt;!&ndash; Product reviews&ndash;&gt;
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
-                                </div>
-                            </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Sale badge&ndash;&gt;
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Sale badge&ndash;&gt;
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Special Item</h5>
+                                &lt;!&ndash; Product reviews&ndash;&gt;
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
                                 </div>
-                            </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                <span class="text-muted text-decoration-line-through">$20.00</span>
+                                $18.00
                             </div>
                         </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    &lt;!&ndash; Product reviews&ndash;&gt;
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    $40.00
-                                </div>
-                            </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Sale badge&ndash;&gt;
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Sale badge&ndash;&gt;
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Sale Item</h5>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                <span class="text-muted text-decoration-line-through">$50.00</span>
+                                $25.00
                             </div>
                         </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    $120.00 - $280.00
-                                </div>
-                            </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Sale badge&ndash;&gt;
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Special Item</h5>
-                                    &lt;!&ndash; Product reviews&ndash;&gt;
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Popular Item</h5>
+                                &lt;!&ndash; Product reviews&ndash;&gt;
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
                                 </div>
-                            </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                $40.00
                             </div>
                         </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            &lt;!&ndash; Product image&ndash;&gt;
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            &lt;!&ndash; Product details&ndash;&gt;
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    &lt;!&ndash; Product name&ndash;&gt;
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    &lt;!&ndash; Product reviews&ndash;&gt;
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    &lt;!&ndash; Product price&ndash;&gt;
-                                    $40.00
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Sale badge&ndash;&gt;
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Sale Item</h5>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                <span class="text-muted text-decoration-line-through">$50.00</span>
+                                $25.00
+                            </div>
+                        </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Fancy Product</h5>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                $120.00 - $280.00
+                            </div>
+                        </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Sale badge&ndash;&gt;
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Special Item</h5>
+                                &lt;!&ndash; Product reviews&ndash;&gt;
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
                                 </div>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                <span class="text-muted text-decoration-line-through">$20.00</span>
+                                $18.00
                             </div>
-                            &lt;!&ndash; Product actions&ndash;&gt;
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        &lt;!&ndash; Product image&ndash;&gt;
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        &lt;!&ndash; Product details&ndash;&gt;
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                &lt;!&ndash; Product name&ndash;&gt;
+                                <h5 class="fw-bolder">Popular Item</h5>
+                                &lt;!&ndash; Product reviews&ndash;&gt;
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                &lt;!&ndash; Product price&ndash;&gt;
+                                $40.00
                             </div>
+                        </div>
+                        &lt;!&ndash; Product actions&ndash;&gt;
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>-->
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+        </div>
+    </section>-->
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>        <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
 </html>
