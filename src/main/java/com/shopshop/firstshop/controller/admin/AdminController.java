@@ -116,14 +116,18 @@ public class AdminController {
         return "redirect:/admin/items";
     }
 
+    // 관리자 상품 목록 조회
     @GetMapping("/items")
     public String getItems(Model model,
                            @RequestParam(value = "page", defaultValue = "0") int page,
                            @RequestParam(value = "size", defaultValue = "10") int size) {
-        Page<Item> itemsPage = itemService.getItems(PageRequest.of(page, size));
+        // Page<Item> itemsPage = itemService.getItems(PageRequest.of(page, size));
+        Page<Item> itemsPage = itemService.getItemsWithMainImage(PageRequest.of(page, size));
         System.out.println("총 데이터 개수: " + itemsPage.getTotalElements());
         System.out.println("총 페이지 개수: " + itemsPage.getTotalPages());
+        System.out.println("url: " + itemsPage.getContent().get(0).getMainImageUrl());
         model.addAttribute("itemsPage", itemsPage);
         return "item/itemsList";
     }
+    
 }

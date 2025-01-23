@@ -24,6 +24,7 @@
     <table class="table table-striped mt-4">
         <thead>
         <tr>
+            <th>상품이미지</th>
             <th>ID</th>
             <th>Name</th>
             <th>Category</th>
@@ -39,6 +40,9 @@
         <tbody>
         <!-- 상품 데이터 출력 -->
         <tr th:each="item : ${itemsPage?.content}">
+            <td>
+                <img th:src="@{{imgName}(imgName=${item.mainImageUrl})}" alt="상품 이미지">
+            </td>
             <td th:text="${item.id}">ID</td>
             <td th:text="${item.itemName}">Name</td>
             <td th:text="${item.itemCategory}">Category</td>

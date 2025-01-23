@@ -94,4 +94,20 @@ public class ItemService {
 
         return itemRepository.findAll(pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Item> getItemsWithMainImage(Pageable pageable) {
+        Page<Item> itemsPage = itemRepository.findAll(pageable);
+        
+        // 각 상품의 대표 이미지 URL을 조회하여 설정
+        itemsPage.getContent().forEach(item -> {
+            ItemImg mainImage = itemImgRepository.findByItemIdAndRepImgYn(item.getId(), "Y");
+            if (mainImage != null) {
+                // 이미지 URL을 item 객체에 임시로 저장할 수 있도록 필드 추가 필요
+                item.setMainImageUrl(mainImage.getImgUrl());
+            }
+        });
+        
+        return itemsPage;
+    }
 }

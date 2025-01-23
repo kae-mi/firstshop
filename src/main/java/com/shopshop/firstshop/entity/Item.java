@@ -45,6 +45,9 @@ public class Item {
 
     private LocalDateTime updateTime;
 
+    @Transient // DB에 저장되지 않는 임시 필드
+    private String mainImageUrl;
+
     public void updateItem(ItemFormDto itemFormDto) {
         this.itemName = itemFormDto.getItemName();
         this.itemCategory = itemFormDto.getItemCategory();

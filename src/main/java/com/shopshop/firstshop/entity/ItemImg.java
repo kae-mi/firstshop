@@ -33,4 +33,7 @@ public class ItemImg {
         this.imgName = imgName;
         this.imgUrl = imgUrl;
     }
+
 }
+
+
