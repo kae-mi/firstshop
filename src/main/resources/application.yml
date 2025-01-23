@@ -16,11 +16,11 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 100MB
-      location: C:/first_shop/item/
+      location: C:/first_shop/item
 file:
-  dir: file:/C:/first_shop/item/
+  dir: C:/first_shop/item
 
-itemImgLocation: C:/first_shop/item/
+itemImgLocation: C:/first_shop/item
 
 logging:
   level:
