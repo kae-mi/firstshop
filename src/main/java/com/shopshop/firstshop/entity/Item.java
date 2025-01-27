@@ -7,8 +7,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import com.shopshop.firstshop.exception.OutOfStockException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -24,6 +27,9 @@ public class Item {
 
     @Column(nullable = false, length = 50) // NULL 불가능, 이름 길이 50 제한
     private String itemName;
+
+    @OneToMany(mappedBy = "item") // OrderItem 엔티티와 연관관계 매핑
+    private List<OrderItem> orderItems = new ArrayList<>(); // 상품은 여러 주문 상품 가능
 
     @Column(nullable = false)
     private String itemCategory;
@@ -56,4 +62,17 @@ public class Item {
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
     }
+
+    public void removeStock(int quantity) {
+        int restStock = this.stockNumber - quantity;
+        if (restStock < 0) {
+            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량: " + this.stockNumber + ")");
+        }
+        this.stockNumber = restStock;
+    }
+
+    public void addStock(int quantity) {
+        this.stockNumber += quantity;
+    }
+
 }
