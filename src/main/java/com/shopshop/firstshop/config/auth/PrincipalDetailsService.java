@@ -22,11 +22,8 @@ public class PrincipalDetailsService implements UserDetailsService {
     // 최정적으로 로그인이 완료된다.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByUsername(username);
-
-        if (member != null){
-            return new PrincipalDetails(member);
-        }
-        return null;
+        return memberRepository.findByUsername(username)
+                .map(PrincipalDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 }

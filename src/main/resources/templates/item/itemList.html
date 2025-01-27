@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 목록</title>
+</head>
+<body>
+    <div class="container">
+        <!-- 검색 폼 -->
+        <form th:action="@{/items}" method="get">
+            <select name="category">
+                <option value="">전체 카테고리</option>
+                <option th:each="cat : ${categories}" 
+                        th:value="${cat}"
+                        th:text="${cat}"
+                        th:selected="${cat == category}">카테고리명</option>
+            </select>
+            <input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력하세요">
+            <button type="submit">검색</button>
+        </form>
+
+        <!-- 상품 목록 -->
+        <div class="item-grid">
+            <div th:each="item : ${items}" class="item-card">
+                <img th:if="${item.mainImageUrl}" th:src="${item.mainImageUrl}" alt="상품 이미지">
+                <div class="item-info">
+                    <h3 th:text="${item.itemName}">상품명</h3>
+                    <p th:text="${item.itemCategory}">카테고리</p>
+                    <p th:text="${#numbers.formatInteger(item.price, 0, 'COMMA') + '원'}">가격</p>
+                    <span th:text="${item.itemSellStatus}">판매상태</span>
+                </div>
+                <a th:href="@{'/items/' + ${item.id}}" class="btn">상세보기</a>
+            </div>
+        </div>
+
+        <!-- 페이징 -->
+        <div class="pagination" th:if="${items.totalPages > 0}">
+            <span th:each="pageNumber : ${#numbers.sequence(0, items.totalPages - 1)}">
+                <a th:href="@{/items(page=${pageNumber}, size=${items.size}, category=${category}, keyword=${keyword})}"
+                   th:text="${pageNumber + 1}"
+                   th:class="${pageNumber == items.number} ? 'active'">1</a>
+            </span>
+        </div>
+    </div>
+</body>
+</html> 
