@@ -1,39 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
-    <meta charset="UTF-8">
     <title>상품 상세</title>
 </head>
 <body>
-    <div class="container">
-        <div class="item-detail">
-            <!-- 상품 이미지 슬라이더 -->
-            <div class="item-images">
-                <div th:each="itemImg : ${item.itemImgDtoList}">
-                    <img th:if="${itemImg.imgUrl}" th:src="${itemImg.imgUrl}" class="item-image">
+    <div layout:fragment="content">
+        <div class="row">
+            <!-- 상품 이미지 -->
+            <div class="col-md-6">
+                <div id="itemImageCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div th:each="itemImg, stat : ${item.itemImgDtoList}" 
+                             th:class="'carousel-item' + (${stat.first} ? ' active' : '')">
+                            <img th:if="${itemImg.imgUrl}" th:src="${itemImg.imgUrl}" 
+                                 class="d-block w-100" alt="상품 이미지">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" 
+                            data-bs-target="#itemImageCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" 
+                            data-bs-target="#itemImageCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
                 </div>
             </div>
 
             <!-- 상품 정보 -->
-            <div class="item-info">
-                <h2 th:text="${item.itemName}">상품명</h2>
-                <p class="price" th:text="${#numbers.formatInteger(item.price, 0, 'COMMA') + '원'}">가격</p>
-                <p class="category" th:text="${item.itemCategory}">카테고리</p>
-                <p class="stock" th:text="'재고: ' + ${item.stockNumber} + '개'">재고</p>
-                <div class="item-status" th:text="${item.itemSellStatus}">판매상태</div>
+            <div class="col-md-6">
+                <h2 class="mb-3" th:text="${item.itemName}">상품명</h2>
+                <div class="mb-3">
+                    <span class="badge bg-secondary" th:text="${item.itemCategory}">카테고리</span>
+                    <span class="badge" th:classappend="${item.itemSellStatus.name() == 'SOLD_OUT'} ? 'bg-danger' : 'bg-success'"
+                          th:text="${item.itemSellStatus}">판매상태</span>
+                </div>
+                <h3 class="mb-3" th:text="${#numbers.formatInteger(item.price, 0, 'COMMA') + '원'}">가격</h3>
+                <p class="text-muted" th:text="'재고: ' + ${item.stockNumber} + '개'">재고</p>
+                
+                <hr>
                 
                 <!-- 상품 설명 -->
-                <div class="description" th:utext="${item.itemDetail}">상품 설명</div>
-
+                <div class="mb-4" th:utext="${item.itemDetail}">상품 설명</div>
+                
                 <!-- 주문 폼 -->
-                <form th:action="@{/order}" method="post">
+                <form th:action="@{/order}" method="post" class="mt-4">
                     <input type="hidden" name="itemId" th:value="${item.id}">
-                    <div class="order-quantity">
-                        <label for="count">수량:</label>
-                        <input type="number" id="count" name="count" value="1" min="1" 
-                               th:max="${item.stockNumber}">
+                    <div class="mb-3">
+                        <label for="count" class="form-label">수량:</label>
+                        <input type="number" id="count" name="count" 
+                               class="form-control" value="1" min="1" 
+                               th:max="${item.stockNumber}" style="width: 100px;">
                     </div>
-                    <button type="submit" class="order-button" 
+                    <button type="submit" class="btn btn-primary w-100" 
                             th:disabled="${item.itemSellStatus.name() == 'SOLD_OUT'}">
                         주문하기
                     </button>

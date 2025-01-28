@@ -67,7 +67,7 @@ public class MemberController {
 
         model.addAttribute("loginFormDto", new LoginFormDto());
 
-        return "/member/loginForm";
+        return "member/loginForm";
     }
 
     /*@PostMapping("/login")
