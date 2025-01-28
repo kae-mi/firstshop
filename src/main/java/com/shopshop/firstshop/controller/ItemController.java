@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/items")
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ItemController {
 
     private final ItemService itemService;
+    private static final Logger log = LoggerFactory.getLogger(ItemController.class);
     
     @GetMapping
     public String itemList(Model model,
@@ -54,6 +57,10 @@ public class ItemController {
         try {
             ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
             model.addAttribute("item", itemFormDto);
+            
+            // 디버깅을 위한 로그 추가
+            log.info("Item details: {}", itemFormDto);
+            
             return "item/itemDetail";
         } catch (EntityNotFoundException e) {
             model.addAttribute("errorMessage", "존재하지 않는 상품입니다.");
