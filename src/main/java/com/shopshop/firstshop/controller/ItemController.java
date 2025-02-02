@@ -5,6 +5,8 @@ import com.shopshop.firstshop.dto.ItemListDto;
 import com.shopshop.firstshop.service.ItemService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,16 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
+@Slf4j
 @Controller
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
 
     private final ItemService itemService;
-    private static final Logger log = LoggerFactory.getLogger(ItemController.class);
     
     @GetMapping
     public String itemList(Model model,
@@ -31,10 +33,16 @@ public class ItemController {
                           @RequestParam(required = false) String keyword,
                           @RequestParam(defaultValue = "0") int page,
                           @RequestParam(defaultValue = "12") int size) {
-                          
+                            
+        log.info("category: {}, keyword: {}, page: {}, size: {}", category, keyword, page, size);
+
+        List<String> allCategoriesName = itemService.getAllCategoriesName();
+        model.addAttribute("allCategoriesName", allCategoriesName);
+        log.info("allCategoriesName: {}", allCategoriesName);
+
         Pageable pageable = PageRequest.of(page, size);
         Page<ItemListDto> items;
-        
+                            
         if (category != null && keyword != null) {
             items = itemService.searchItemsByCategoryAndKeyword(category, keyword, pageable);
         } else if (category != null) {

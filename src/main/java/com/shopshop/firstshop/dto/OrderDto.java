@@ -9,4 +9,6 @@ public class OrderDto {
     private Long itemId;
     
     private int count;
+
+    private String orderStatus;
 } 

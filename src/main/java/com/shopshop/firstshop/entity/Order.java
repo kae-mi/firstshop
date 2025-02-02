@@ -24,7 +24,7 @@ public class Order {
     private Member member; // 회원은 여러 주문을 할 수 있음
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>(); // 주문 상품 엔티티와 연관관계 매핑
+    private List<OrderItem> orderItems = new ArrayList<>(); // OrderItem 엔티티와 연관관계 매핑
 
     private LocalDateTime orderDate; // 주문 시간
 
@@ -41,7 +41,9 @@ public class Order {
         orderItem.setOrder(this);
     }
 
-    // 주문 생성 메소드
+    // Order 객체 생성 메소드
+    // Order 객체를 생성하기 위해서는 Member 객체와 OrderItem 객체가 필요함
+    // 참고로 OrderItem 객체는 Item 객체가 있어야 먼들 수 있음
     public static Order createOrder(Member member, List<OrderItem> orderItems) {
         Order order = new Order();
         order.setMember(member);

@@ -4,14 +4,6 @@ html, body {
     margin: 0;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
 form {
     max-width: 600px;
     width: 100%;
@@ -47,6 +39,56 @@ form {
 .py-5 {
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
+}
+
+
+/* ✅ 카드 공통 스타일 */
+.profile-card, .order-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;  /* 카드 간 간격 추가 */
+}
+
+/* ✅ 텍스트 중앙 정렬 */
+.profile-card p, .profile-card h3 {
+    text-align: center;
+}
+
+/* ✅ 주문 테이블 스타일 */
+.order-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-card th, .order-card td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.order-card th {
+    background-color: #343a40;
+    color: white;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+/* ✅ 카드 크기 조절 */
+.profile-card, .order-card {
+    min-height: 300px; /* 카드 높이 증가 */
+}
+
+/* ✅ 반응형 (모바일 대응) */
+@media (max-width: 768px) {
+    .profile-card, .order-card {
+        padding: 20px;
+    }
 }
 
 /*input:invalid {*/

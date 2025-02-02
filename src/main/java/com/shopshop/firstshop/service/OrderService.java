@@ -28,8 +28,11 @@ public class OrderService {
         Item item = itemRepository.findById(orderDto.getItemId())
                 .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
 
-        Member member = memberRepository.findByUsername(name)
-                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        Member member = memberRepository.findByUsername(name);
+
+        if (member == null) {
+            throw new IllegalArgumentException("회원을 찾을 수 없습니다.");
+        }
 
         // 주문 상품 생성
         OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());

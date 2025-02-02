@@ -35,4 +35,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     Page<Item> findByCategoryAndKeyword(@Param("category") String category, 
                                       @Param("keyword") String keyword, 
                                       Pageable pageable);
+
+    @Query("SELECT DISTINCT i.itemCategory FROM Item i")
+    List<String> findAllCategoriesName();
 }

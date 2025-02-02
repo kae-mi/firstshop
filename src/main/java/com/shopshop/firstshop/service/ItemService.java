@@ -137,4 +137,8 @@ public class ItemService {
         Page<Item> items = itemRepository.findByCategoryAndKeyword(category, keyword, pageable);
         return items.map(ItemListDto::new);
     }
+
+    public List<String> getAllCategoriesName() {
+        return itemRepository.findAllCategoriesName();
+    }
 }
