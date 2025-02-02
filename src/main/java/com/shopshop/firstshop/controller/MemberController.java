@@ -3,6 +3,7 @@ package com.shopshop.firstshop.controller;
 import com.shopshop.firstshop.dto.JoinFormDto;
 import com.shopshop.firstshop.dto.LoginFormDto;
 import com.shopshop.firstshop.entity.Member;
+import com.shopshop.firstshop.repository.MemberRepository;
 import com.shopshop.firstshop.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -15,6 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.Optional;
+
 @Slf4j
 @Controller
 @RequestMapping("/members")
@@ -23,6 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/join")
     public String joinForm(Model model) {
@@ -119,8 +124,6 @@ public class MemberController {
         return "redirect:/";
     }
 
-
-
     @GetMapping("/user")
     public String user() {
         return "adminHome";
@@ -130,5 +133,20 @@ public class MemberController {
     @GetMapping("/info")
     public @ResponseBody String info() {
         return "개인정보 페이지";
+    }
+
+    @GetMapping("/memberInfo")
+    public String memberInfo(Principal principal, Model model) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        String username = principal.getName();
+        log.info("username: {}, principal: {}", username, principal);
+
+        Member member = memberRepository.findByUsername(username);
+        log.info("member: {}", member.getOrders().get(0).getOrderStatus());
+        model.addAttribute("member", member);
+        return "member/memberInfo";
     }
 }

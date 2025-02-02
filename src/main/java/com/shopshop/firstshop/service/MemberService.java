@@ -28,8 +28,8 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        Optional<Member> findMember = memberRepository.findByUsername(member.getUsername());
-        if (findMember.isPresent()) {
+        Member findMember = memberRepository.findByUsername(member.getUsername());
+        if (findMember.getUsername().matches(member.getUsername())) {
             throw new IllegalStateException("이미 가입된 회원입니다.");
             // 이미 가입된 경우이므로 예외처리
         }
@@ -38,14 +38,14 @@ public class MemberService {
     public void login(String email, String password) {
 
         // 이메일로 사용자를 조회 -> 조회가 안되면 예외 발생
-        Optional<Member> member = memberRepository.findByUsername(email);
+        Member member = memberRepository.findByUsername(email);
 
-        if (member.isEmpty()) {
+        if (member == null) {
             throw new IllegalStateException("해당 이메일을 찾을 수 없습니다.");
         }
 
         // 비밀번호 검증
-        if(!passwordEncoder.matches(password, member.get().getPassword())) {
+        if(!passwordEncoder.matches(password, member.getPassword())) {
             throw new IllegalStateException("잘못된 비밀번호입니다.");
         }
     }

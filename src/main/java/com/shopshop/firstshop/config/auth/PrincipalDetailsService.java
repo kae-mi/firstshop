@@ -14,16 +14,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrincipalDetailsService implements UserDetailsService {
 
+    private final MemberRepository memberRepository;
+
     @Autowired
-    private MemberRepository memberRepository;
+    public PrincipalDetailsService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     // 리턴하는 것(userDetails)은 Authentication 객체 내부에 들어간다.
     // Authentication 객체는 시큐리티 session 내부에 들어간다.
     // 최정적으로 로그인이 완료된다.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return memberRepository.findByUsername(username)
-                .map(PrincipalDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
+        Member member = memberRepository.findByUsername(username);
+
+        if (member == null) {
+            throw new UsernameNotFoundException("member not found:" + username);
+        }
+
+        return new PrincipalDetails(member);
+
     }
 }

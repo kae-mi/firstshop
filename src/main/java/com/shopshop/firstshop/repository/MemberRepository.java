@@ -14,7 +14,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // findBy -> 규칙 , Username 부분은 문법이다.
     // 아래 함수르 통해 만들어지는 쿼리 -> select * from member where name = ?
-    Optional<Member> findByUsername(String username);
+    Member findByUsername(String username);
 
     /*@PersistenceContext
     private EntityManager em;

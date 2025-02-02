@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+
 <body>
 <div layout:fragment="content">
-
     <div class="container col-md-7 col-lg-8">
 
         <form th:action="${role == 'admin' ? '/members/joinAdmin' : '/members/join'}" role="form" method="post"

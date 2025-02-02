@@ -13,7 +13,7 @@
                 <form th:action="@{/items}" method="get" class="d-flex gap-2">
                     <select name="category" class="form-select w-25">
                         <option value="">전체 카테고리</option>
-                        <option th:each="cat : ${categories}" 
+                        <option th:each="cat : ${allCategoriesName}"
                                 th:value="${cat}"
                                 th:text="${cat}"
                                 th:selected="${cat == category}">카테고리명</option>
