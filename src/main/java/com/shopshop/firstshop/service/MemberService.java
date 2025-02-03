@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Service
@@ -18,8 +19,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-
-
 
 
     public Member saveMember(Member member) {
@@ -48,5 +47,19 @@ public class MemberService {
         if(!passwordEncoder.matches(password, member.getPassword())) {
             throw new IllegalStateException("잘못된 비밀번호입니다.");
         }
+    }
+
+    public Member getUMemberByUsername(String username) {
+
+        return memberRepository.findByUsername(username);
+    }
+
+    public boolean checkPassword(Member member, String password) {
+
+        return passwordEncoder.matches(password, member.getPassword());
+    }
+
+    public void updateMember(Member member) {
+        memberRepository.save(member);
     }
 }
