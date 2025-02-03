@@ -12,6 +12,10 @@ spring:
         # show_sql: true
         format_sql: true
     show-sql: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled=true:
   servlet:
     multipart:
       max-file-size: 20MB

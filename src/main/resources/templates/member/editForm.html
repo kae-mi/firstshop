@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h3>✏️ 회원 정보 수정</h3>
+        <form th:action="@{/user/edit}" method="POST" th:object="${editFormDto}">
+            <input type="hidden" name="_method" value="put"/>
+            <!-- ✅ Username (읽기 전용) -->
+            <div class="mb-3">
+                <label for="username" class="form-label">사용자명 (Username)</label>
+                <input type="text" id="username" name="username"
+                       class="form-control"
+                       th:field="*{username}"
+                       readonly />
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">이름</label>
+                <input type="text" id="name" name="name" class="form-control" th:field="${editFormDto.name}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">주소</label>
+                <input type="text" id="address" name="address" class="form-control" th:field="${editFormDto.address}" required>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">저장하기 💾</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

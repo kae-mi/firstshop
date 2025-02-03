@@ -29,6 +29,7 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
+    // 회원 가입 Get URL
     @GetMapping("/join")
     public String joinForm(Model model) {
 
@@ -37,6 +38,7 @@ public class MemberController {
         return "member/joinForm"; // resources/templates의 member/joinForm 렌더링해서 보여줌
     }
 
+    // 회원 가입 Post URL
     @PostMapping("/join")
     public String memberForm(@Valid JoinFormDto joinFormDto, BindingResult bindingResult, Model model) {
         // 검증하려는 객체 앞에 @Valid 애노테이션 붙여줘야 한다.
@@ -64,9 +66,7 @@ public class MemberController {
         return "redirect:/";
     }
 
-
-
-
+    // 로그인 Get URL
     @GetMapping("/login")
     public String memberLogin(Model model) {
 
@@ -75,7 +75,10 @@ public class MemberController {
         return "member/loginForm";
     }
 
-    /*@PostMapping("/login")
+    /*
+    로그인 Post URL
+    시큐리티가 대신 인증 처리해주기 때문에 이 URL은 필요없음
+    @PostMapping("/login")
     public String memberLogin(@Valid LoginFormDto loginFormDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -95,6 +98,7 @@ public class MemberController {
         }
     }*/
 
+    // 관리자 회원가입 Get URL
     @GetMapping("/joinAdmin")
     public String joinAdminForm(Model model) {
         model.addAttribute("joinFormDto", new JoinFormDto());
@@ -102,13 +106,13 @@ public class MemberController {
         return "member/joinForm";
     }
 
+    // 관리자 회원가입 Post URL
     @PostMapping("/joinAdmin")
     public String joinAdmin(@Valid JoinFormDto joinFormDto, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()) {
             log.info("bindingResult has error");
             log.info("BindingResult: {}", bindingResult.getModel());
-
 
             return "member/joinForm";
         }
@@ -122,31 +126,5 @@ public class MemberController {
         }
 
         return "redirect:/";
-    }
-
-    @GetMapping("/user")
-    public String user() {
-        return "adminHome";
-    }
-
-    @Secured("ROLE_USER")
-    @GetMapping("/info")
-    public @ResponseBody String info() {
-        return "개인정보 페이지";
-    }
-
-    @GetMapping("/memberInfo")
-    public String memberInfo(Principal principal, Model model) {
-
-        if (principal == null) {
-            return "redirect:/login";
-        }
-        String username = principal.getName();
-        log.info("username: {}, principal: {}", username, principal);
-
-        Member member = memberRepository.findByUsername(username);
-        log.info("member: {}", member.getOrders().get(0).getOrderStatus());
-        model.addAttribute("member", member);
-        return "member/memberInfo";
     }
 }
