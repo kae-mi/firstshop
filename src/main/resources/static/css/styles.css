@@ -104,6 +104,176 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+
+
+/* 네비게이션 바 전체 스타일 */
+.navbar {
+  background-color: #fff; /* 배경색 */
+  border-bottom: 1px solid #ddd; /* 하단 테두리 */
+  padding: 12px 20px;
+}
+
+/* 브랜드 로고 스타일 */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #222;
+}
+
+/* 네비게이션 메뉴 */
+.navbar-nav .nav-link {
+  font-size: 1rem;
+  color: #444;
+  padding: 10px 15px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #000; /* 호버 시 색 변경 */
+}
+
+/* 로그인 & 회원가입 버튼 */
+.btn-dark {
+  background-color: #343a40;
+  border: none;
+}
+
+.btn-dark:hover {
+  background-color: #222;
+}
+
+/* 장바구니 버튼 */
+.btn-outline-dark {
+  border: 1px solid #343a40;
+  color: #343a40;
+}
+
+.btn-outline-dark:hover {
+  background-color: #343a40;
+  color: white;
+}
+
+/* 버튼 간 간격 */
+.d-flex.align-items-center {
+  gap: 15px; /* 버튼 사이 간격 */
+}
+
+
+
+
+
+
+/* 중앙 정렬 및 레이아웃 조정 */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+form {
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+/* 폼 필드 간격 조정 */
+.form-label {
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+}
+
+.col-12 {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  margin: 0 auto;
+  margin-top: 1.5rem;
+}
+
+/* 필드에 대한 기본 유효성 검사 스타일 */
+.invalid-feedback {
+  margin-top: 0.5rem;
+  display: block;
+  color: #dc3545;
+}
+
+.py-5 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+
+/* ✅ 카드 공통 스타일 */
+.profile-card, .order-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;  /* 카드 간 간격 추가 */
+}
+
+/* ✅ 텍스트 중앙 정렬 */
+.profile-card p, .profile-card h3 {
+  text-align: center;
+}
+
+/* ✅ 주문 테이블 스타일 */
+.order-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-card th, .order-card td {
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.order-card th {
+  background-color: #343a40;
+  color: white;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+/* ✅ 카드 크기 조절 */
+.profile-card, .order-card {
+  min-height: 300px; /* 카드 높이 증가 */
+}
+
+/* ✅ 반응형 (모바일 대응) */
+@media (max-width: 768px) {
+  .profile-card, .order-card {
+    padding: 20px;
+  }
+}
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* 두 캐러셀 사이 간격 */
+  padding: 20px;
+}
+.carousel {
+  flex: 1; /* 두 Carousel이 같은 크기로 배치되도록 설정 */
+  max-width: 45%; /* Carousel의 최대 너비 제한 */
+}
+.carousel img {
+  height: 1000px; /* 이미지 높이 고정 */
+  object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+}
+
+/*input:invalid {*/
+/*    border-color: #dc3545;*/
+/*    box-shadow: 0 0 0.25rem rgba(220, 53, 69, 0.5);*/
+/*}*/
+
 hr {
   margin: 1rem 0;
   color: inherit;

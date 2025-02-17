@@ -90,6 +90,20 @@ form {
         padding: 20px;
     }
 }
+.carousel-container {
+     display: flex;
+     justify-content: center;
+     gap: 20px; /* 두 캐러셀 사이 간격 */
+     padding: 20px;
+}
+.carousel {
+    flex: 1; /* 두 Carousel이 같은 크기로 배치되도록 설정 */
+    max-width: 45%; /* Carousel의 최대 너비 제한 */
+}
+.carousel img {
+    height: 1000px; /* 이미지 높이 고정 */
+    object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+}
 
 /*input:invalid {*/
 /*    border-color: #dc3545;*/

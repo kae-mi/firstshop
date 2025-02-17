@@ -25,8 +25,8 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        //.requestMatchers("/user").authenticated() // /user로 접근하려면 인증이 필요하고 자동으로 로그인 페이지로 이동함
-                        //.requestMatchers("/admin").hasRole("ADMIN") // 마찬가지이며 Role 조건도 필요함
+                        .requestMatchers("/user").authenticated() // /user로 접근하려면 인가가 필요하고 인가받지 않았다면 자동으로 로그인 페이지로 이동함
+                        .requestMatchers("/admin").hasRole("ADMIN") // 마찬가지이며 Role 조건도 필요함
                         .anyRequest().permitAll() // 위에 설정한 url을 제외한 모든 url은 접근 허용
                 )
                 .formLogin(form -> form
@@ -39,8 +39,7 @@ public class SecurityConfig {
                         .successHandler(new CustomAuthenticationSuccessHandler()) //로그인이 성공했을 때 이를 처리하는 커스텀 핸들러
                         .permitAll() // 로그인 페이지는 누구나 접속 가능
                 )
-                .csrf(AbstractHttpConfigurer::disable
-                );
+                .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
