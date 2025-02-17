@@ -2,6 +2,7 @@ package com.shopshop.firstshop.config.auth;
 
 import com.shopshop.firstshop.entity.Member;
 import com.shopshop.firstshop.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 // 요청이 오면 자동으로 UserDetailsService 타입으로 IoC되어 있는 loadUserByUsername() 함수가 호출를 호출해서
 // 회원 정보를 찾고 된다. - 규칙!!!
 @Service
+@Slf4j
 public class PrincipalDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
@@ -33,7 +35,9 @@ public class PrincipalDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("member not found:" + username);
         }
 
-        return new PrincipalDetails(member);
+        PrincipalDetails principalDetails = new PrincipalDetails(member);
+        log.info("로그인 성공: principalDetails.username = {}", principalDetails.getUsername());
+        return principalDetails;
 
     }
 }

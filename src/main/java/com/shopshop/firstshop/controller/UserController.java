@@ -37,7 +37,7 @@ public class UserController {
         String username = principal.getName();
         log.info("username = {}", username);
         model.addAttribute("username", username);
-        return "userHome";
+        return "home";
     }
 
     // 회원정보 페이지 Get URL

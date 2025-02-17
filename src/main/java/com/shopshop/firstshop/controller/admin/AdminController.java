@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,13 +22,14 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+@Secured("ROLE_ADMIN")  // 관리자만 접근 가능
 public class AdminController {
 
     private final ItemService itemService;
 
     @GetMapping("/home")
     public String adminHome() {
-        return "adminHome";
+        return "home";
     }
 
     @GetMapping("/item/new")
