@@ -24,6 +24,10 @@ spring:
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
+  output:
+      ansi:
+        enabled: always
+
 file:
   dir: C:/first_shop/item
 
@@ -32,4 +36,7 @@ itemImgLocation: C:/first_shop/item
 logging:
   level:
     root: info
+
+
+
 

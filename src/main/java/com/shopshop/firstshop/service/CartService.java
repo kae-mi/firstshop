@@ -35,8 +35,8 @@ public class CartService {
 
         Item item = itemRepository.findById(cartItemDto.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
-        
-        CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item);
+
+        CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
 
         if (cartItem != null) {
             cartItem.addCount(cartItemDto.getCount());

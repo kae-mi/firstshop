@@ -5,8 +5,6 @@ import java.security.Principal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,24 +21,20 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping(value = "/cart")
-    public ResponseEntity<String> addCart(@RequestBody @Validated CartItemDto cartItemDto,
-                                            BindingResult bindingResult,
-                                            Principal principal) {
-
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>("장바구니 담기 실패", HttpStatus.BAD_REQUEST);
+    @ResponseBody
+    public ResponseEntity<String> addCart(@RequestBody CartItemDto cartItemDto,
+                                        Principal principal) {
+        if (principal == null) {
+            return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
         }
-        
-        String email = principal.getName();
-        Long cartItemId;
 
         try {
-            cartItemId = cartService.addCart(cartItemDto, email);
+            String email = principal.getName();
+            Long cartItemId = cartService.addCart(cartItemDto, email);
+            return new ResponseEntity<>("상품을 장바구니에 담았습니다.", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("장바구니 담기 실패" + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        
-        return new ResponseEntity<>("장바구니에 상품을 담았습니다.", HttpStatus.OK);
     }
 
 }
