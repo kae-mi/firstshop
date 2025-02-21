@@ -1,5 +1,6 @@
 package com.shopshop.firstshop.service;
 
+import com.shopshop.firstshop.dto.CartDetailDto;
 import com.shopshop.firstshop.dto.CartItemDto;
 import com.shopshop.firstshop.entity.Cart;
 import com.shopshop.firstshop.entity.CartItem;
@@ -11,6 +12,10 @@ import com.shopshop.firstshop.repository.ItemRepository;
 import com.shopshop.firstshop.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,4 +52,21 @@ public class CartService {
             return cartItem.getId();
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<CartDetailDto> getCartList(String email) {
+        
+        List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
+        
+        Member member = memberRepository.findByUsername(email);
+        Cart cart = cartRepository.findByMemberId(member.getId());
+        
+        if (cart == null) {
+            return cartDetailDtoList;
+        }
+
+        cartDetailDtoList = cartItemRepository.findCartDetailDtoList(cart.getId());
+        return cartDetailDtoList;
+    }
+
 }

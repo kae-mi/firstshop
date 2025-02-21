@@ -2,11 +2,14 @@ package com.shopshop.firstshop.repository;
 
 import com.shopshop.firstshop.entity.CartItem;
 import com.shopshop.firstshop.entity.Item;
+import com.shopshop.firstshop.dto.CartDetailDto;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.NoResultException;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class CartItemRepository {
@@ -42,5 +45,19 @@ public class CartItemRepository {
 
     public void delete(CartItem cartItem) {
         em.remove(cartItem);
+    }
+
+    public List<CartDetailDto> findCartDetailDtoList(Long cartId) {
+        return em.createQuery(
+            "select new com.shopshop.firstshop.dto.CartDetailDto(" +
+                "ci.id, " +
+                "ci.item.itemName, " +
+                "ci.item.price, " +
+                "ci.count) " +
+            "from CartItem ci " +
+            "where ci.cart.id = :cartId " +
+            "order by ci.id desc", CartDetailDto.class)
+            .setParameter("cartId", cartId)
+            .getResultList();
     }
 }
