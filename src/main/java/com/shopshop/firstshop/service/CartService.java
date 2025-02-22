@@ -29,7 +29,7 @@ public class CartService {
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
-    public Long addCart(CartItemDto cartItemDto, String email) {
+    public void addCart(CartItemDto cartItemDto, String email) {
         Member member = memberRepository.findByUsername(email);
         Cart cart = cartRepository.findByMemberId(member.getId());
 
@@ -44,12 +44,10 @@ public class CartService {
         CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
 
         if (cartItem != null) {
-            cartItem.addCount(cartItemDto.getCount());
-            return cartItem.getId();
+            cartItem.updateCount(cartItemDto.getCount());
         } else {
             cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());
             cartItemRepository.save(cartItem);
-            return cartItem.getId();
         }
     }
 
@@ -67,6 +65,26 @@ public class CartService {
 
         cartDetailDtoList = cartItemRepository.findCartDetailDtoList(cart.getId());
         return cartDetailDtoList;
+    }
+
+    // 장바구니 상품 수량 변경 로직
+    public void updateQuantity(Long cartItemId, int change) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId);
+        
+        int newQuantity = cartItem.getCount() + change;
+
+        if (newQuantity < 1) {
+            throw new IllegalArgumentException("수량은 1보다 작을 수 없습니다.");
+        }
+        
+        cartItem.updateCount(newQuantity);
+    }
+
+    // 장바구니 상품 삭제 로직
+    public void removeCartItem(Long cartItemId) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId);
+        
+        cartItemRepository.delete(cartItem);
     }
 
 }

@@ -40,7 +40,7 @@ public class CartItem {
         return cartItem;
     }
 
-    public void addCount(int count) {
-        this.count += count;
+    public void updateCount(int count) {
+        this.count = count;
     }
 }
