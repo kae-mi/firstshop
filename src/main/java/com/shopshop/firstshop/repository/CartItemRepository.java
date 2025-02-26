@@ -52,6 +52,7 @@ public class CartItemRepository {
             "select new com.shopshop.firstshop.dto.CartDetailDto(" +
                 "ci.id, " +
                 "ci.item.itemName, " +
+                "ci.item.id, " +
                 "ci.item.price, " +
                 "ci.count) " +
             "from CartItem ci " +
@@ -60,4 +61,12 @@ public class CartItemRepository {
             .setParameter("cartId", cartId)
             .getResultList();
     }
+
+    public void deleteByUsername(String username) {
+        em.createQuery("DELETE FROM CartItem ci WHERE ci.cart.member.username = :username")
+                .setParameter("username", username)
+                .executeUpdate();
+    }
+
+
 }

@@ -17,7 +17,9 @@
                 <table class="table">
                     <thead>
                         <tr>
+<!--
                             <th>상품이미지</th>
+-->
                             <th>상품명</th>
                             <th>가격</th>
                             <th>수량</th>
@@ -27,10 +29,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="item : ${cartItems}">
-                            <td>
-                                <img th:src="${item.imgUrl}" class="img-thumbnail" 
-                                     style="max-width: 100px; max-height: 100px;">
-                            </td>
+
                             <td th:text="${item.itemName}"></td>
                             <td th:text="${#numbers.formatInteger(item.price, 0, 'COMMA') + '원'}"></td>
                             <td>
@@ -69,74 +68,92 @@
             </div>
         </div>
     </div>
-    
+
     <script th:inline="javascript">
+        let cartItems = /*[[${cartItems}]]*/ [];
+
+        console.log("cartItems 데이터:", cartItems); // 데이터 확인
+
         function increaseQuantity(cartItemId) {
             updateQuantity(cartItemId, 1);
         }
-        
+
         function decreaseQuantity(cartItemId) {
             updateQuantity(cartItemId, -1);
         }
-        
+
         function updateQuantity(cartItemId, change) {
-            fetch(`/cart/items/${cartItemId}/quantity?change=${change}`, {
+            fetch(`/cart/items/${cartItemId}/quantity?change=${change}`, {  // ✅ 백틱(``` ` ```) 사용
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alert('수량 변경에 실패했습니다.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('수량 변경에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
-        
+
         function removeItem(cartItemId) {
             if (!confirm('정말 삭제하시겠습니까?')) return;
-            
-            fetch(`/cart/items/${cartItemId}`, {
+
+            fetch(`/cart/items/${cartItemId}`, {  // ✅ 백틱(``` ` ```) 사용
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alert('삭제에 실패했습니다.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('삭제에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
-        
+
+
         function orderAll() {
             if (!confirm('장바구니의 모든 상품을 주문하시겠습니까?')) return;
-            
-            fetch('/order/cart', {
+
+            if (!Array.isArray(cartItems) || cartItems.length === 0) {
+                alert("장바구니가 비어 있습니다.");
+                return;
+            }
+
+            let orderData = cartItems.map(item => ({
+                itemId: item.itemId,
+                count: item.count
+            }));
+
+            fetch('/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify(orderData)
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('주문이 완료되었습니다.');
-                    location.href = '/orders';
-                } else {
-                    alert('주문에 실패했습니다.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('주문이 완료되었습니다.');
+                        location.href = 'user/home';
+                    } else {
+                        alert('주문에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
     </script>
+
+
 </div>
 </html>

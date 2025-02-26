@@ -53,7 +53,7 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public List<CartDetailDto> getCartList(String email) {
-        
+
         List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
         
         Member member = memberRepository.findByUsername(email);
