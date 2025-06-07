@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.shopshop.firstshop.dto.OrderDto;
 import groovy.util.logging.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,7 +101,8 @@ public class CartController {
             getExceptionMessage(e);
             return ResponseEntity.ok(Collections.singletonMap("success", false));
         }
-    }
+        
+    }    
 
     private static void getExceptionMessage(Exception e) {
         log.info("error message: {}", e.getMessage());
