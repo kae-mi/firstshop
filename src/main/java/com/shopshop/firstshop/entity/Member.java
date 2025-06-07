@@ -38,6 +38,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
+
     // 회원 정보를 만드는 static 함수
     public static Member createMember(JoinFormDto joinFormDto,
                                       PasswordEncoder passwordEncoder) {

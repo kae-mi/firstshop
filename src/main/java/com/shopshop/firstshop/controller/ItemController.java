@@ -29,10 +29,10 @@ public class ItemController {
     
     @GetMapping
     public String itemList(Model model,
-                          @RequestParam(required = false) String category,
-                          @RequestParam(required = false) String keyword,
-                          @RequestParam(defaultValue = "0") int page,
-                          @RequestParam(defaultValue = "12") int size) {
+                          @RequestParam(name = "category", required = false) String category,
+                          @RequestParam(name = "keyword", required = false) String keyword,
+                          @RequestParam(name = "page", defaultValue = "0") int page,
+                          @RequestParam(name = "size", defaultValue = "12") int size) {
                             
         log.info("category: {}, keyword: {}, page: {}, size: {}", category, keyword, page, size);
 
