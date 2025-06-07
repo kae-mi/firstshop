@@ -12,11 +12,22 @@ spring:
         # show_sql: true
         format_sql: true
     show-sql: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled=true:
   servlet:
     multipart:
       max-file-size: 20MB
       max-request-size: 100MB
       location: C:/first_shop/item
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+  output:
+      ansi:
+        enabled: always
+
 file:
   dir: C:/first_shop/item
 
@@ -24,5 +35,8 @@ itemImgLocation: C:/first_shop/item
 
 logging:
   level:
-    root: debug
+    root: info
+
+
+
 

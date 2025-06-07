@@ -2,14 +2,12 @@ package com.shopshop.firstshop.config;
 
 import com.shopshop.firstshop.security.CustomAuthenticationSuccessHandler;
 import lombok.AllArgsConstructor;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,96 +21,30 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-
         http
-                .authorizeHttpRequests(auth -> auth
-                        //.requestMatchers("/user").authenticated() // /user로 접근하려면 인증이 필요하고 자동으로 로그인 페이지로 이동함
-                        //.requestMatchers("/admin").hasRole("ADMIN") // 마찬가지이며 Role 조건도 필요함
-                        .anyRequest().permitAll() // 위에 설정한 url을 제외한 모든 url은 접근 허용
-                )
-                .formLogin(form -> form
-                        .loginPage("/members/login") // 사용자 정의 로그인 페이지
-                        .loginProcessingUrl("/members/login") // 해당 url로 요청이 오면 시큐리티가 요청을 낚아채서 로그인 로직을 수행한다. 따라서 컨트롤러에서 get 안만들어도 됨
-                        .defaultSuccessUrl("/")
-                        .successHandler(new CustomAuthenticationSuccessHandler())
-                        .permitAll() // 로그인 페이지는 누구나 접속 가능
-                )
-                .csrf(AbstractHttpConfigurer::disable
-                );
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/user").authenticated() // /user로 접근하려면 인가가 필요하고 인가받지 않았다면 자동으로 로그인 페이지로 이동함
+                    .requestMatchers("/admin").hasRole("ADMIN") // 마찬가지이며 Role 조건도 필요함
+                    .anyRequest().permitAll() // 위에 설정한 url을 제외한 모든 url은 접근 허용
+            )
+            .formLogin(form -> form
+                    // 원래라면 시큐리티가 제공하는 기본 로그인 페이지 대신 커스텀 로그인 페이지를 사용하도록 설정.
+                    // 사용자가 로그인되지 않은 상태로 보호된 URL에 접근하면 /members/login 페이지로 리다이렉트.
+                    .loginPage("/members/login")
+                    //로그인 폼은 POST 여야 하고, action="/members/login" 이어야 한다. 해당 요청이 들어오면 시큐리티가
+                    //요청을 낚아채서 인증 처리를 대신 함.
+                    .loginProcessingUrl("/members/login")
+                    .successHandler(new CustomAuthenticationSuccessHandler()) //로그인이 성공했을 때 이를 처리하는 커스텀 핸들러
+                    .permitAll() // 로그인 페이지는 누구나 접속 가능
+            )
+            .csrf(csrf -> csrf.disable());
+
         return http.build();
     }
-
-
-
-    /*@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-
-
-                *//*.formLogin(form -> form
-                        .loginPage("/members/login") // 로그인 페이지 Url
-                        .defaultSuccessUrl("/") // 로그인 성공시 이동할 Url
-                        .usernameParameter("email") // 로그인 시 사용할 파라미터 이름
-                        .failureUrl("/members/login/error") //로그인 실패시 이동할 Url
-                );
-*//*
-
-        http
-                .logout(logout -> logout
-                        // 해당 url로 요청이 오면 로그아웃을 처리한다.
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                                .logoutSuccessUrl("/") // 로그아웃이 정상적으로 되면 해당 url로 이동한다.
-                );
-
-        http
-                .exceptionHandling(exception -> exception
-                        // 인증되지 않은 사용자가 리소스에 접근하려고 하면 수행되는 핸들러이다.
-                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                );
-
-        return http.build();
-
-
-                *//*.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user").authenticated()
-                        .requestMatchers("/admin").authenticated()
-                        .anyRequest().permitAll()
-                        );*//*
-                *//*.formLogin(form -> form
-                        .loginPage("/members/login")
-                        .permitAll()
-                        //.failureUrl("/members/join")   // 로그인 실패 시 이동할 페이지
-                );*//*
-
-        *//*http.authorizeHttpRequests(configurer ->
-                configurer
-                        .requestMatchers("/h2-console/**").permitAll() // H2 콘솔에 대한 접근 허용
-                        .anyRequest().authenticated() // 나머지 요청에 대해 인증 필요
-
-        );*//*
-
-        *//*http.csrf((csrf) -> csrf
-                .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")));*/
-        // use HTTP Basic authentication
-        //http.httpBasic(Customizer.withDefaults());
-
-        // disable Cross Site Request Forgery(CSRF)
-        //http.csrf(csrf -> csrf.disable());
-
-
 
     // 패스워드 인코딩을 위한 PasswordEncoder를 Bean으로 등록한다.
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    /*// H2 콘솔 관련 설정
-    @Bean
-    @ConditionalOnProperty(name = "spring.h2.console.enabled", havingValue = "true")
-    public WebSecurityCustomizer configureH2ConsoleEnable() {
-        return web -> web.ignoring()
-                .requestMatchers(PathRequest.toH2Console());
-    }*/
 }

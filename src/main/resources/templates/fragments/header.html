@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid px-5">
+            <!-- 로고 -->
+            <a class="navbar-brand fw-bold" href="/">SIMPLE SHOPSHOPSHOPSHOP</a>
+
+            <!-- 모바일 메뉴 버튼 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <!-- 네비게이션 메뉴 -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="/item/newArrival">New Arrival</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/item/outwear">Outwear</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Top</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/item/top/knitwear">Knitwear</a></li>
+                            <li><a class="dropdown-item" href="/item/top/sweatshirt">Sweatshirt</a></li>
+                            <li><a class="dropdown-item" href="/item/top/shirts">Shirts</a></li>
+                            <li><a class="dropdown-item" href="/item/top/innerwear">Innerwear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/item/bottom">Bottom</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/item/accessory">Accessory</a></li>
+                </ul>
+
+                <!-- 사용자 상태 메시지 -->
+                <div class="user-greeting d-flex align-items-center mb-0">
+
+                    <!-- 비로그인 상태 -->
+                    <div sec:authorize="isAnonymous()">
+                        <!-- 로그인 & 회원가입 -->
+                        <a href="/members/login" class="btn btn-dark">Log in</a>
+                        <a href="/members/join" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a>
+                    </div>
+
+                    <!-- 로그인 상태 -->
+                    <div sec:authorize="hasRole('ROLE_USER')">
+                        <a href="/logout" class="btn btn-primary btn-dark me-2">Logout</a>
+                        <a href="/user/info" class="btn btn-primary btn-dark me-2">My Page</a>
+                    </div>
+
+                    <!-- 관리자 상태 -->
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="item/new" class="btn btn-primary btn-dark me-2">상품 등록</a>
+                        <a href="/admin/items" class="btn btn-primary btn-dark me-2">상품 조회</a>
+                        <a href="#" class="btn btn-primary btn-dark me-2">주문 관리</a>
+                    </div>
+
+                    <a class="btn btn-outline-dark" href="/cart">
+                        <i class="bi-cart-fill me-1"></i> Cart
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+

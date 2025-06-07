@@ -2,6 +2,7 @@ package com.shopshop.firstshop.service;
 
 import com.shopshop.firstshop.dto.ItemFormDto;
 import com.shopshop.firstshop.dto.ItemImgDto;
+import com.shopshop.firstshop.dto.ItemListDto;
 import com.shopshop.firstshop.entity.Item;
 import com.shopshop.firstshop.entity.ItemImg;
 import com.shopshop.firstshop.repository.ItemImgRepository;
@@ -109,5 +110,35 @@ public class ItemService {
         });
         
         return itemsPage;
+    }
+
+    // 전체 상품 목록 조회
+    public Page<ItemListDto> getAllItems(Pageable pageable) {
+        Page<Item> items = itemRepository.findAll(pageable);
+        return items.map(ItemListDto::new);
+    }
+    
+    // 카테고리별 상품 조회
+    public Page<ItemListDto> getItemsByCategory(String category, Pageable pageable) {
+        Page<Item> items = itemRepository.findByItemCategory(category, pageable);
+        return items.map(ItemListDto::new);
+    }
+    
+    // 상품명으로 검색
+    public Page<ItemListDto> searchItems(String keyword, Pageable pageable) {
+        Page<Item> items = itemRepository.findByItemNameContaining(keyword, pageable);
+        return items.map(ItemListDto::new);
+    }
+    
+    // 카테고리와 키워드로 검색
+    public Page<ItemListDto> searchItemsByCategoryAndKeyword(String category, 
+                                                           String keyword, 
+                                                           Pageable pageable) {
+        Page<Item> items = itemRepository.findByCategoryAndKeyword(category, keyword, pageable);
+        return items.map(ItemListDto::new);
+    }
+
+    public List<String> getAllCategoriesName() {
+        return itemRepository.findAllCategoriesName();
     }
 }

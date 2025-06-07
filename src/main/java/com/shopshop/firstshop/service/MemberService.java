@@ -5,12 +5,11 @@ import com.shopshop.firstshop.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +21,6 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
 
-
-
     public Member saveMember(Member member) {
         validateDuplicateMember(member);
         return memberRepository.save(member);
@@ -31,7 +28,7 @@ public class MemberService {
 
     private void validateDuplicateMember(Member member) {
         Member findMember = memberRepository.findByUsername(member.getUsername());
-        if (findMember != null) {
+        if (findMember.getUsername().matches(member.getUsername())) {
             throw new IllegalStateException("이미 가입된 회원입니다.");
             // 이미 가입된 경우이므로 예외처리
         }
@@ -50,5 +47,19 @@ public class MemberService {
         if(!passwordEncoder.matches(password, member.getPassword())) {
             throw new IllegalStateException("잘못된 비밀번호입니다.");
         }
+    }
+
+    public Member getUMemberByUsername(String username) {
+
+        return memberRepository.findByUsername(username);
+    }
+
+    public boolean checkPassword(Member member, String password) {
+
+        return passwordEncoder.matches(password, member.getPassword());
+    }
+
+    public void updateMember(Member member) {
+        memberRepository.save(member);
     }
 }

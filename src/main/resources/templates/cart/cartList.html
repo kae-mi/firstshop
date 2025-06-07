@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<div layout:fragment="content">
+    <div class="container my-4">
+        <h2 class="text-center mb-4">장바구니</h2>
+        
+        <div th:if="${#lists.isEmpty(cartItems)}" class="text-center">
+            <p>장바구니가 비어있습니다.</p>
+            <a href="/items" class="btn btn-primary">쇼핑 계속하기</a>
+        </div>
+        
+        <div th:unless="${#lists.isEmpty(cartItems)}" class="cart-items">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+<!--
+                            <th>상품이미지</th>
+-->
+                            <th>상품명</th>
+                            <th>가격</th>
+                            <th>수량</th>
+                            <th>합계</th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${cartItems}">
+
+                            <td th:text="${item.itemName}"></td>
+                            <td th:text="${#numbers.formatInteger(item.price, 0, 'COMMA') + '원'}"></td>
+                            <td>
+                                <div class="input-group" style="max-width: 120px;">
+                                    <button class="btn btn-outline-secondary btn-sm" 
+                                            th:onclick="'decreaseQuantity(' + ${item.cartItemId} + ')'">-</button>
+                                    <input type="number" class="form-control text-center" 
+                                           th:value="${item.count}" readonly>
+                                    <button class="btn btn-outline-secondary btn-sm"
+                                            th:onclick="'increaseQuantity(' + ${item.cartItemId} + ')'">+</button>
+                                </div>
+                            </td>
+                            <td>
+                                <span th:text="${#numbers.formatInteger(item.price * item.count, 0, 'COMMA')} + '원'"></span>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm"
+                                        th:onclick="'removeItem(' + ${item.cartItemId} + ')'">삭제</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>총 결제금액:</strong></td>
+                            <td colspan="2">
+                                <strong th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')} + '원'"></strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-4">
+                <a href="/items" class="btn btn-secondary">쇼핑 계속하기</a>
+                <button class="btn btn-primary" onclick="orderAll()">전체 상품 주문</button>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        let cartItems = /*[[${cartItems}]]*/ [];
+
+        console.log("cartItems 데이터:", cartItems); // 데이터 확인
+
+        function increaseQuantity(cartItemId) {
+            updateQuantity(cartItemId, 1);
+        }
+
+        function decreaseQuantity(cartItemId) {
+            updateQuantity(cartItemId, -1);
+        }
+
+        function updateQuantity(cartItemId, change) {
+            fetch(`/cart/items/${cartItemId}/quantity?change=${change}`, {  // ✅ 백틱(``` ` ```) 사용
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('수량 변경에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function removeItem(cartItemId) {
+            if (!confirm('정말 삭제하시겠습니까?')) return;
+
+            fetch(`/cart/items/${cartItemId}`, {  // ✅ 백틱(``` ` ```) 사용
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('삭제에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+        function orderAll() {
+            if (!confirm('장바구니의 모든 상품을 주문하시겠습니까?')) return;
+
+            if (!Array.isArray(cartItems) || cartItems.length === 0) {
+                alert("장바구니가 비어 있습니다.");
+                return;
+            }
+
+            let orderData = cartItems.map(item => ({
+                itemId: item.itemId,
+                count: item.count
+            }));
+
+            fetch('/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('주문이 완료되었습니다.');
+                        location.href = 'user/home';
+                    } else {
+                        alert('주문에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+
+</div>
+</html>

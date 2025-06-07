@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <!-- ✅ Profile Section -->
+    <div class="profile-card">
+        <h3>👤 My Profile</h3>
+        <p class="text-muted">개인 정보</p>
+        <hr>
+
+        <p><strong>Name:</strong> <span th:text="${member.name}">John Doe</span></p>
+        <p><strong>Email:</strong> <span th:text="${member.username}">johndoe@example.com</span></p>
+        <p><strong>Address:</strong> <span th:text="${member.address}">123 Main Street</span></p>
+        <p><strong>Role:</strong> <span th:text="${member.role}">ROLE_USER</span></p>
+
+<!--        <a href="/user/editInfo" class="btn btn-outline-primary mt-3 w-100">회원 정보 수정하기</a>-->
+<!--        <button class="btn btn-outline-primary w-100 mt-3" onclick="showPasswordPrompt()">✏️ 수정하기</button>-->
+
+        <!-- ✅ 비밀번호 확인 페이지로 이동 -->
+        <form th:action="@{/user/verifyPassword}" method="GET" class="mt-3">
+            <button type="submit" class="btn btn-outline-primary w-100">✏️ 수정하기</button>
+        </form>
+    </div>
+
+    <!-- ✅ Orders Section -->
+    <div class="order-card">
+        <h4>📦 Order History</h4>
+        <hr>
+
+        <!-- 주문이 있을 때 -->
+        <table class="table table-hover" th:if="${member.orders.size() > 0}">
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${member.orders}">
+                <td th:text="${order.id}">1001</td>
+                <td>
+                    <span class="badge bg-primary" th:if="${order.orderStatus.toString() == 'ORDER_RECEIVED'}">접수 완료</span>
+                    <span class="badge bg-success" th:if="${order.orderStatus.toString() == 'PAYMENT_COMPLETED'}">결제 완료</span>
+                    <span class="badge bg-info text-dark" th:if="${order.orderStatus.toString() == 'PREPARING'}">상품 준비중</span>
+                    <span class="badge bg-warning text-dark" th:if="${order.orderStatus.toString() == 'SHIPPING'}">배송중</span>
+                    <span class="badge bg-secondary" th:if="${order.orderStatus.toString() == 'DELIVERED'}">배송 완료</span>
+                    <span class="badge bg-danger" th:if="${order.orderStatus.toString() == 'CANCELED'}">주문 취소</span>
+                </td>
+                <td th:text="${order.totalAmount + ' $'}">150.00 $</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- 주문이 없을 때 -->
+        <div class="alert alert-info text-center" th:if="${member.orders.size() == 0}">
+            You have no order history yet. 🗒️
+        </div>
+    </div>
+</div>
+</body>
+</html>
